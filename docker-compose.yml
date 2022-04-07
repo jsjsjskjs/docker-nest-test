@@ -1,0 +1,25 @@
+version: "3.5"
+services: 
+  redis:
+    container_name: redislocal
+    hostname: redislocal
+    image: "redis:6.2.5"
+    command: redis-server --appendonly yes --requirepass 6te0valZ2L
+    ports:
+      - 6379:6379
+    networks:
+      - network-test
+  nest:
+    build: .
+    ports:
+      - 3000:3000
+    networks:
+      - network-test
+    volumes:
+      - /app
+networks: 
+  network-test:
+    external: true
+volumes:
+  nest-content:
+    external: true
